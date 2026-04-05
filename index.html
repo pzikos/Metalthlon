@@ -527,7 +527,8 @@
   /* ── PAGE SECTIONS ── */
   .page { display: none; }
   .page.active { display: block; }
-@media (max-width: 768px) {
+
+  @media (max-width: 768px) {
     nav { padding: 0 20px; }
     .nav-links { display: none; }
     .hero { padding: 60px 20px; }
@@ -895,4 +896,24 @@
 
 <script>
 function showPage(id) {
-  document.qu
+  var pages = document.querySelectorAll('.page');
+  for (var i = 0; i < pages.length; i++) {
+    pages[i].classList.remove('active');
+  }
+  var el = document.getElementById('page-' + id);
+  if (el) el.classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function route() {
+  var hash = window.location.hash.replace('#', '');
+  var valid = ['home', 'products', 'services', 'contact'];
+  var page = valid.indexOf(hash) >= 0 ? hash : 'home';
+  showPage(page);
+}
+
+window.addEventListener('hashchange', route);
+window.addEventListener('load', route);
+</script>
+</body>
+</html>
